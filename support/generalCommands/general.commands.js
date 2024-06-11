@@ -28,7 +28,7 @@ class generalCommands {
         await page.goto(ffpage);
         await page.waitForURL(ffpage);
         for (const index in devFeatureFlags) {
-            await page.getByLabel(devFeatureFlags[index]).check();
+            await page.getByLabel(devFeatureFlags[index]).nth(0).check();
         }
     }
 }
