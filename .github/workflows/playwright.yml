@@ -17,11 +17,6 @@ jobs:
       run: npm ci
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
-
-  run-tests:
-    needs: [setup-and-install-dependencies]
-    runs-on: ubuntu-20.04
-    steps:
     - name: Run Playwright tests
       run: npx playwright test
       env:
