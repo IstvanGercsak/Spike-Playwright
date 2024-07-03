@@ -72,6 +72,6 @@ jobs:
     - name: Upload HTML report
       uses: actions/checkout@v4
       with:
-        name: html-report--attempt-${{github.run_attempt}}
+        name: html-report--attempt-${{matrix.shard}}
         path: playwright-report
         retention-days: 30
