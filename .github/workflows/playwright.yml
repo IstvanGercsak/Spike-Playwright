@@ -5,7 +5,7 @@ on:
   pull_request:
     branches: [ main, master ]
 jobs:
-  setup:
+  setup-and-install-dependencies:
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
@@ -18,17 +18,29 @@ jobs:
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
 
-  prepare-report:
-    needs: setup
+  run-tests:
+    needs: [setup-and-install-dependencies]
     runs-on: ubuntu-20.04
     steps:
     - name: Run Playwright tests
-      run: npx playwright test --project=chromium
+      run: npx playwright test
       env:
         TESTUSER_USERNAME: ${{ secrets.TESTUSER_USERNAME }}
         TESTUSER_PASSWORD: ${{ secrets.TESTUSER_PASSWORD }}
         BASE_URL: ${{ secrets.BASE_URL }}
         TOKEN_URL: ${{ secrets.TOKEN_URL }}
+    - uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: playwright-report
+        path: playwright-report/
+        retention-days: 30
+  
+  create-report:
+    needs: [run-tests]
+    runs-on: ubuntu-20.04
+    steps:
+    - name: Empty run
     - uses: actions/upload-artifact@v4
       if: always()
       with:
