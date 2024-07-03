@@ -1,5 +1,8 @@
 class navigaton{
 
+    // Client
+    client() { return '#main-nav-clients-link' }
+
     // Manager
     manager() { return '#main-nav-manager-link' }
 
