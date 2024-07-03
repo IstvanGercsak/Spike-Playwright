@@ -67,7 +67,7 @@ jobs:
     - name: Download blob reports from GitHub Actions Artifacts
       uses: actions/download-artifact@v4
       with:
-        name: blob-report
+        name: blob-report-${{ strategy.job-index }}
         path: blob-report
     
     - name: Merge into HTML report
