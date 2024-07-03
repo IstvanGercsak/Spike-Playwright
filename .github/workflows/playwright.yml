@@ -30,6 +30,7 @@ jobs:
         name: playwright-report
         path: playwright-report/
         retention-days: 30
+
   prepare-report:
     needs: [setup]
     runs-on: ubuntu-20.04
