@@ -11,7 +11,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix: 
-        shard: [1/4, 2/4, 3/4, 4/4]
+        shard: [1/8, 2/8, 3/8, 4/8, 5/8, 6/8, 7/8, 8/8]
     steps:
     - uses: actions/checkout@v4
     - uses: actions/setup-node@v4
@@ -72,6 +72,6 @@ jobs:
     - name: Upload HTML report
       uses: actions/checkout@v4
       with:
-        name: html-report--attempt-${{ github.run_attempt }}
+        name: html-report--attempt-${{github.run_attempt}}
         path: playwright-report
         retention-days: 30
