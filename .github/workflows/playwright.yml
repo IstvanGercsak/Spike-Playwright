@@ -9,8 +9,8 @@ jobs:
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    - uses: actions/setup-node@v3
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
       with:
         node-version: 18
     - name: Install dependencies
@@ -24,7 +24,7 @@ jobs:
         TESTUSER_PASSWORD: ${{ secrets.TESTUSER_PASSWORD }}
         DEV_BASE_URL: ${{ secrets.DEV_BASE_URL }}
         DEV_TOKEN_URL: ${{ secrets.DEV_TOKEN_URL }}
-    - uses: actions/upload-artifact@v3
+    - uses: actions/upload-artifact@v4
       if: always()
       with:
         name: playwright-report
