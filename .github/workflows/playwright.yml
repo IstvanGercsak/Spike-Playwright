@@ -21,6 +21,10 @@ jobs:
       run: npm ci
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
+    - name: Install Allure reports
+      run: |
+        npm install -D allure-commandline
+        npx allure generate ./allure-results --clean
     - name: Run Playwright tests
       run: npx playwright test --shard ${{matrix.shard}}
       env:
@@ -31,19 +35,19 @@ jobs:
     - uses: actions/upload-artifact@v4
       if: always()
       with:
-        name: playwright-report--${{matrix.shard}}
+        name: playwright-report-${{ strategy.job-index }}
         path: playwright-report/
         retention-days: 30
     - uses: actions/upload-artifact@v4
       if: always()
       with:
-        name: playwright-allure--${{matrix.shard}}
+        name: playwright-allure-${{ strategy.job-index }}
         path: allure-report/
         retention-days: 30
     - uses: actions/upload-artifact@v4
       if: always()
       with:
-        name: blob-report--${{matrix.shard}}
+        name: blob-report-${{ strategy.job-index }}
         path: blob-report/
         retention-days: 30
   
