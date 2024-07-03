@@ -24,6 +24,8 @@ class navigaton{
     courses() { return '#courses' }
     specialOffers() { return '#special-offers' }
 
+    // Staff
+    access() { return '#access' }
 }
 
 module.exports = new navigaton()
