@@ -9,3 +9,5 @@ node_modules/
 /playwright/.cache/
 .env
 .DS_Store
+/allure-results
+/allure-report
