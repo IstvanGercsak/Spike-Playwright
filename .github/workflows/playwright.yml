@@ -11,7 +11,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix: 
-        shard: [1/8, 2/8, 3/8, 4/8, 5/8, 6/8, 7/8, 8/8]
+        shardIndex: [1, 2, 3, 4]
+        shardTotal: [4]
     steps:
     - uses: actions/checkout@v4
     - uses: actions/setup-node@v4
@@ -26,7 +27,7 @@ jobs:
         npm install -D allure-commandline
         npx allure generate ./allure-results --clean
     - name: Run Playwright tests
-      run: npx playwright test --shard ${{matrix.shard}}
+      run: npx playwright test --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}
       env:
         TESTUSER_USERNAME: ${{ secrets.TESTUSER_USERNAME }}
         TESTUSER_PASSWORD: ${{ secrets.TESTUSER_PASSWORD }}
@@ -35,19 +36,19 @@ jobs:
     - uses: actions/upload-artifact@v4
       if: always()
       with:
-        name: playwright-report-${{ strategy.job-index }}
+        name: playwright-report-${{ matrix.shardIndex }}
         path: playwright-report/
         retention-days: 30
     - uses: actions/upload-artifact@v4
       if: always()
       with:
-        name: playwright-allure-${{ strategy.job-index }}
+        name: playwright-allure-${{ matrix.shardIndex }}
         path: allure-report/
         retention-days: 30
     - uses: actions/upload-artifact@v4
       if: always()
       with:
-        name: blob-report-${{ strategy.job-index }}
+        name: blob-report-${{ matrix.shardIndex }}
         path: blob-report/
         retention-days: 30
   
@@ -67,7 +68,7 @@ jobs:
     - name: Download blob reports from GitHub Actions Artifacts
       uses: actions/download-artifact@v4
       with:
-        name: blob-report-${{ strategy.job-index }}
+        name: blob-report-${{ matrix.shardIndex }}
         path: blob-report
     
     - name: Merge into HTML report
@@ -76,6 +77,6 @@ jobs:
     - name: Upload HTML report
       uses: actions/checkout@v4
       with:
-        name: html-report--attempt-${{github.run_attempt}}
+        name: html-report-${{ matrix.shardIndex }}
         path: playwright-report
         retention-days: 30
