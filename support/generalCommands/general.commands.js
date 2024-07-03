@@ -3,7 +3,7 @@ class generalCommands {
     async login(page, request) {
         let revisionKey = "";
 
-        const response = await request.post(process.env.DEV_TOKEN_URL, {
+        const response = await request.post(process.env.TOKEN_URL, {
             data: {
                 "grant_type": "basic",
                 "client_type": "user",
@@ -17,18 +17,9 @@ class generalCommands {
         await page.evaluate(tokenValue => localStorage.setItem('access-token', tokenValue), tokenValue)
 
         if (!revisionKey) {
-            await page.goto(process.env.DEV_BASE_URL)
+            await page.goto(process.env.BASE_URL)
         } else {
-            await page.goto(process.env.DEV_BASE_URL + '/?revision=' + revisionKey)
-        }
-    }
-
-    // Turn on feature flags
-    async turnOnFeatureFlag(page, ffpage, devFeatureFlags) {
-        await page.goto(ffpage);
-        await page.waitForURL(ffpage);
-        for (const index in devFeatureFlags) {
-            await page.getByLabel(devFeatureFlags[index]).nth(0).check();
+            await page.goto(process.env.BASE_URL + '/?revision=' + revisionKey)
         }
     }
 }
