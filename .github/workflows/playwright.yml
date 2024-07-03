@@ -70,7 +70,7 @@ jobs:
       run: npx playwright merge-reports --reporter html ./blob-report
 
     - name: Upload HTML report
-      uses: uses: actions/checkout@v4
+      uses: actions/checkout@v4
       with:
         name: html-report--attempt-${{ github.run_attempt }}
         path: playwright-report
