@@ -31,19 +31,19 @@ jobs:
     - uses: actions/upload-artifact@v4
       if: always()
       with:
-        name: playwright-report
+        name: playwright-report--${{matrix.shard}}
         path: playwright-report/
         retention-days: 30
     - uses: actions/upload-artifact@v4
       if: always()
       with:
-        name: playwright-allure
+        name: playwright-allure--${{matrix.shard}}
         path: allure-report/
         retention-days: 30
     - uses: actions/upload-artifact@v4
       if: always()
       with:
-        name: blob-report
+        name: blob-report--${{matrix.shard}}
         path: blob-report/
         retention-days: 30
   
@@ -72,6 +72,6 @@ jobs:
     - name: Upload HTML report
       uses: actions/checkout@v4
       with:
-        name: html-report--attempt-${{matrix.shard}}
+        name: html-report--attempt-${{github.run_attempt}}
         path: playwright-report
         retention-days: 30
