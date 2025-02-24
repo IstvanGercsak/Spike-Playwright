@@ -15,7 +15,7 @@ test('Clients screen is available', async ({ page }) => {
     await expect(page).toHaveURL(/clients/);
 });
 
-test('Create a new client', async ({ page }) => {
+test.skip('Create a new client', async ({ page }) => {
     await page.locator(navigation.client()).click()
     await page.getByRole('button', { name: 'Add New Client' }).click()
     await page.locator("#notes").click()

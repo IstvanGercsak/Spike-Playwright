@@ -11,6 +11,7 @@ class navigaton{
         csvExport() { return '#csv-export' }
         discunts() { return '#discounts' }
         taxRates() { return '#tax-rates' }
+        brandSettings() { return '#brand-settings' }
     categories() { return '#categories' }
         productCategories() { return 'Product Categories' }
         serviceCategories() { return 'Service Categories' }

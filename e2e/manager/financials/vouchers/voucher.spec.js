@@ -9,10 +9,9 @@ test.beforeEach("Authentication", async ({ page, request }) => {
     await generalCommands.login(page, request);
 })
 
-test('Tax rates screen is available', async ({ page }) => {
+test('Voucher screen is available', async ({ page }) => {
     await page.locator(navigation.manager()).click()
-    await page.locator(navigation.business()).click()
-    await page.locator(navigation.taxRates()).click()
-    await expect(page).toHaveTitle('Tax Rates | My Phorest')
-    await expect(page).toHaveURL(/tax-rates/)
+    await page.locator("#vouchers").click()
+    await expect(page).toHaveTitle('Vouchers | My Phorest');
 });
+
